@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>九曲同流·幸福河长｜黄河流域九省协同治理数据新闻</title>
+<script src="https://cdn.jsdelivr.net/npm/echarts@5/dist/echarts.min.js"></script>
+<style>
+:root{
+  --paper:#FBFAF6; --card:#FFFFFF;
+  --ink:#2B2B26; --ink2:#6B6A60; --ink3:#9A988C;
+  --gold:#B98A2B; --gold-l:#E3B85C;
+  --green:#2E8B6E; --green-l:#5FC49E;
+  --line:#E4E0D4;
+}
+*{margin:0;padding:0;box-sizing:border-box;}
+html{scroll-snap-type:y proximity;}
+body{
+  background:var(--paper); color:var(--ink);
+  font-family:"PingFang SC","Hiragino Sans GB","Microsoft YaHei","Noto Sans SC",sans-serif;
+  -webkit-font-smoothing:antialiased;
+}
+/* ===== 统一字体规范 =====
+   标题 700 / 正文 400 / 强调与数字 600–700，全篇仅 paper 底 + 墨字 + 金/绿两色 */
+section{
+  max-width:520px; margin:0 auto;
+  padding:56px 20px 40px;
+  scroll-snap-align:start;
+  border-bottom:1px solid var(--line);
+}
+.eyebrow{
+  font-size:11px; font-weight:700; letter-spacing:.24em;
+  color:var(--gold); margin-bottom:8px;
+}
+h2{font-size:21px; font-weight:700; line-height:1.35; margin-bottom:4px;}
+h2 .num{color:var(--gold); margin-right:6px;}
+h3{font-size:15px; font-weight:700; margin:22px 0 6px;}
+p.body{
+  font-size:14.5px; font-weight:400; line-height:1.8; color:var(--ink);
+  margin-bottom:4px;
+}
+p.body strong{font-weight:700; color:var(--ink);}
+p.body .g{color:var(--green); font-weight:700;}
+p.body .y{color:var(--gold); font-weight:700;}
+.src{
+  font-size:11px; font-weight:400; color:var(--ink3); line-height:1.6;
+  margin-top:6px;
+}
+.frame{
+  margin-top:14px; border:1px solid var(--line); border-radius:10px;
+  overflow:hidden; background:var(--card); box-shadow:0 4px 16px rgba(43,43,38,.06);
+}
+.frame iframe{width:100%; height:66vh; border:0; display:block; background:#fff;}
+.hint{
+  font-size:11px; color:var(--ink3); text-align:center; margin-top:6px; font-weight:400;
+}
+/* 数据卡 */
+.stats{display:grid; grid-template-columns:1fr 1fr; gap:10px; margin-top:14px;}
+.stat{
+  background:var(--card); border:1px solid var(--line); border-radius:10px;
+  padding:14px 12px; text-align:center;
+}
+.stat b{display:block; font-size:24px; font-weight:700; color:var(--green); line-height:1.2;}
+.stat b small{font-size:12px; font-weight:600;}
+.stat.gold b{color:var(--gold);}
+.stat span{display:block; font-size:11.5px; font-weight:400; color:var(--ink2); margin-top:4px; line-height:1.5;}
+/* 封面 */
+.cover{min-height:92vh; display:flex; flex-direction:column; justify-content:center;}
+.cover .kicker{font-size:12px; font-weight:700; letter-spacing:.3em; color:var(--gold); margin-bottom:14px;}
+.cover h1{font-size:34px; font-weight:700; line-height:1.3; letter-spacing:.02em;}
+.cover h1 span{color:var(--gold);}
+.cover .sub{font-size:14px; font-weight:400; color:var(--ink2); line-height:1.8; margin-top:12px;}
+.cover .lede{
+  margin-top:20px; padding:16px; background:var(--card);
+  border-left:3px solid var(--gold); border-radius:0 10px 10px 0;
+  font-size:14px; font-weight:400; line-height:1.85; color:var(--ink);
+}
+/* 尾屏 */
+.recap{display:grid; grid-template-columns:1fr 1fr; gap:10px; margin-top:14px;}
+.endsign{
+  margin-top:26px; text-align:center; padding:26px 16px;
+  background:var(--card); border:1px solid var(--line); border-radius:12px;
+}
+.endsign b{font-size:18px; font-weight:700; letter-spacing:.12em;}
+.endsign p{font-size:12.5px; color:var(--ink2); font-weight:400; margin-top:8px; line-height:1.8;}
+.srcbox{
+  margin-top:18px; font-size:11px; color:var(--ink3); line-height:1.8; font-weight:400;
+}
+.srcbox b{font-weight:700; color:var(--ink2);}
+.topbar{
+  position:fixed; top:0; left:0; right:0; height:3px; z-index:99; background:transparent;
+}
+.topbar i{display:block; height:100%; width:0; background:var(--gold);}
+</style>
+</head>
+<body>
+<div class="topbar"><i id="bar"></i></div>
+
+<!-- ============ 第1屏 开篇 ============ -->
+<section class="cover" id="s1">
+  <div class="kicker">黄河流域九省协同治理 · 数据新闻</div>
+  <h1>九曲同流<span>·</span>幸福河长</h1>
+  <div class="sub">一条河的十年治理账本：从 16 亿吨泥沙到连续 24 年不断流，我们用数据拆解沿黄九省如何分工守护同一条河。</div>
+  <div class="lede">
+    <strong>5464 公里</strong>的黄河，被 9 个省区分段守护——
+    上游涵水、中游拦沙、下游防洪，各担一责、彼此咬合。
+    本作品结合 7 组可视化数据，回答一个问题：
+    这条被用到极限的大河，靠什么实现安澜与生态双赢。
+  </div>
+</section>
+
+<section id="s1b">
+  <div class="eyebrow">第 1 屏 · 开篇</div>
+  <h2><span class="num">01</span>河流档案</h2>
+  <p class="body">黄河发源于<strong>青海省巴颜喀拉山脉</strong>，干流全长 <span class="y">5464 公里</span>，是中国第二长河。</p>
+  <p class="body">自西向东流经 <span class="g">青海、四川、甘肃、宁夏、内蒙古、山西、陕西、河南、山东</span> 9 个省区，在山东省东营市注入渤海。</p>
+  <p class="body">拖动下方卫星立体地形图，可俯瞰这条大河从雪山到大海的完整路径。</p>
+  <div class="frame"><iframe src="1-黄河3D卫星地图_手机版.html" loading="lazy" title="黄河3D卫星地图"></iframe></div>
+  <div class="hint">可交互 · 拖动旋转缩放 ｜ 画面下方继续滑动</div>
+  <div class="src">来源：水利部黄河水利委员会</div>
+</section>
+
+<section id="s1c">
+  <div class="eyebrow">第 1 屏 · 开篇</div>
+  <h2><span class="num">02</span>一条被用到极限的大河</h2>
+  <p class="body">黄河以约占全国 <span class="y">2%</span> 的河川径流量，承载了全国约 <span class="g">12%</span> 的人口、约 <span class="g">15%</span> 的耕地，并为沿河 <strong>50 多座</strong>大中城市供水。</p>
+  <p class="body">流域水资源开发利用率高达约 <span class="y">80%</span>，远超一般河流 <strong>40%</strong> 的生态警戒线。</p>
+  <p class="body">多年平均输沙量约 <span class="y">16 亿吨</span>，居世界大江大河之首——水少、沙多、水沙关系不协调，是黄河长期复杂难治的总根源。</p>
+  <div class="stats">
+    <div class="stat"><b>2<small>%</small></b><span>河川径流量占全国比例</span></div>
+    <div class="stat"><b>12<small>%</small></b><span>承载全国人口比例</span></div>
+    <div class="stat gold"><b>80<small>%</small></b><span>流域水资源开发利用率</span></div>
+    <div class="stat gold"><b>16<small>亿吨</small></b><span>多年平均年输沙量</span></div>
+  </div>
+  <div class="src">来源：水利部黄河水利委员会《黄河泥沙公报》</div>
+</section>
+
+<!-- ============ 第2屏 大河分工 ============ -->
+<section id="s2">
+  <div class="eyebrow">第 2 屏 · 第一章 大河分工</div>
+  <h2><span class="num">03</span>同一条河，三种治理任务</h2>
+  <p class="body"><span class="g">上游</span>是主要产水区：兰州以上河段来水量约占全流域一半，2021 年 10 月三江源国家公园正式设立，面积 <strong>19.07 万平方公里</strong>，核心任务是涵养水源。</p>
+  <p class="body"><span class="y">中游</span>是泥沙主源：约九成泥沙来自黄土高原，现有淤地坝 5.9 万座左右，核心任务是拦沙、治沟、退耕还林还草。</p>
+  <p class="body"><span class="g">下游</span>是「地上悬河」：河床普遍高出两岸地面 4–5 米，部分河段超过 10 米，2002 年起小浪底水库连续调水调沙，核心任务是防洪安澜。</p>
+  <p class="body">在立体地形图上可以清楚看到：地貌在哪里变化，治理任务就在哪里切换。</p>
+  <div class="frame"><iframe src="2-huanghe-3d-v3.html" loading="lazy" title="黄河卫星立体地形图"></iframe></div>
+  <div class="hint">可交互 · 侧栏可切换视角 ｜ 画面下方继续滑动</div>
+  <div class="src">来源：《黄河流域生态保护和高质量发展规划纲要》、水利部</div>
+</section>
+
+<!-- ============ 第3屏 十年硕果 ============ -->
+<section id="s3">
+  <div class="eyebrow">第 3 屏 · 第二章 十年之变</div>
+  <h2><span class="num">04</span>水土保持率：六年抬升 3 个百分点</h2>
+  <p class="body">2019—2025 年，黄河流域水土保持率由 <span class="y">66.75%</span> 升至 <span class="g">69.75%</span>，累计提高 <strong>3.00 个百分点</strong>。</p>
+  <p class="body">七个年份逐年抬升、没有回头——这是黄土高原退耕还林还草、淤地坝与梯田建设的直接结果。</p>
+  <p class="body">水土流失面积和强度，同步实现「双下降」。</p>
+  <div class="frame" style="height:56vh"><div id="chart-line" style="width:100%;height:100%"></div></div>
+  <div class="src">来源：黄河流域水土保持公报（2019—2025）</div>
+</section>
+
+<section id="s3b">
+  <div class="eyebrow">第 3 屏 · 第二章 十年之变</div>
+  <h2><span class="num">05</span>水土流失面积：七年收窄 2.38 万平方公里</h2>
+  <p class="body">黄河流域水土流失面积从 2019 年的 <span class="y">26.42 万平方公里</span>，降至 2025 年的 <span class="g">24.04 万平方公里</span>。</p>
+  <p class="body">七年累计减少 <strong>2.38 万平方公里</strong>，相当于每年「治」回一个中等县市的国土面积。</p>
+  <p class="body">年际递减幅度还在扩大：从 2020 年的 0.15 万平方公里，增至 2025 年的 0.54 万平方公里。</p>
+  <div class="frame" style="height:60vh"><div id="chart-funnel" style="width:100%;height:100%"></div></div>
+  <div class="src">来源：黄河流域水土保持公报（2019—2025）</div>
+</section>
+
+<section id="s3c">
+  <div class="eyebrow">第 3 屏 · 第二章 十年之变</div>
+  <h2><span class="num">06</span>断流→不断流：守住 24 年</h2>
+  <p class="body">1972—1999 年，黄河下游 <span class="y">22 个年份</span>发生断流；最严重的 1997 年，利津站断流 <strong>226 天</strong>，断流河段长达 <strong>704 公里</strong>。</p>
+  <p class="body">1999 年 8 月起实施全流域水量统一调度，截至 2023 年，黄河干流已<span class="g">连续 24 年未断流</span>。</p>
+  <p class="body">2022 年起，黄河干流首次全线达到 <span class="g">Ⅱ 类水质</span>并连年保持。</p>
+  <div class="stats">
+    <div class="stat"><b>22<small>年</small></b><span>1972—1999 年出现断流的年份数</span></div>
+    <div class="stat"><b>24<small>年</small></b><span>1999 年统一调度后连续不断流</span></div>
+    <div class="stat gold"><b>226<small>天</small></b><span>1997 年利津站断流天数</span></div>
+    <div class="stat gold"><b>Ⅱ<small>类</small></b><span>2022 年起干流全线水质</span></div>
+  </div>
+  <div class="src">来源：水利部、生态环境部《中国生态环境状况公报》</div>
+</section>
+
+<!-- ============ 第4屏 制度聚力 ============ -->
+<section id="s4">
+  <div class="eyebrow">第 4 屏 · 第三章 制度聚力</div>
+  <h2><span class="num">07</span>四项制度，串起九省</h2>
+  <p class="body"><span class="y">2019 年 9 月 18 日</span>，黄河流域生态保护和高质量发展座谈会在郑州召开，该战略正式上升为重大国家战略。</p>
+  <p class="body"><span class="y">2021 年 10 月 8 日</span>规划纲要发布；<span class="y">2023 年 4 月 1 日</span>《黄河保护法》施行，这是继《长江保护法》之后我国第二步流域专门法律。</p>
+  <p class="body">1987 年「八七」分水方案让沿黄各省首次有了明确用水份额；1999 年起实施全流域水量统一调度，属全国首次。</p>
+  <p class="body">2018 年底九省区全面建立河长制，联防联控机制覆盖全流域。</p>
+  <div class="frame"><iframe src="4-huanghe-timeline.html" loading="lazy" title="黄河流域生态治理制度里程碑"></iframe></div>
+  <div class="hint">可交互 · 点击节点查看详情 ｜ 画面下方继续滑动</div>
+  <div class="src">来源：中共中央、国务院《黄河流域生态保护和高质量发展规划纲要》、《中华人民共和国黄河保护法》</div>
+</section>
+
+<!-- ============ 第5屏 互利共护 ============ -->
+<section id="s5">
+  <div class="eyebrow">第 5 屏 · 第四章 互利共护</div>
+  <h2><span class="num">08</span>让守护者有回报</h2>
+  <p class="body">青海三江源实行生态管护员「一户一岗」制度，约 <span class="g">1.7 万名</span>牧民持证上岗，<strong>户均年增收约 2 万元</strong>。</p>
+  <p class="body">2021 年，河南、山东签订黄河流域<span class="y">首个省际横向生态保护补偿协议</span>，以跨省界断面水质为考核依据：首个履约周期河南水质达标，获得山东 <strong>1 亿元</strong>补偿资金，协议期满后已续签。</p>
+  <p class="body">上游送出清水，下游送回补偿——生态账与发展账，从此在同一张表上核算。</p>
+  <p class="body">下方资金流向图谱展示了补偿与协作在九省之间的双向流动。</p>
+  <div class="frame"><iframe src="5-huanghe-flow-graph.html" loading="lazy" title="黄河流域资金双向流动图谱"></iframe></div>
+  <div class="hint">可交互 · 悬停查看每笔协议 ｜ 画面下方继续滑动</div>
+  <div class="src">来源：财政部、新华社关于豫鲁横向生态补偿协议的公开报道</div>
+</section>
+
+<!-- ============ 第6屏 成果共享 ============ -->
+<section id="s6">
+  <div class="eyebrow">第 6 屏 · 第五章 成果共享</div>
+  <h2><span class="num">09</span>治理成效落到民生</h2>
+  <p class="body">河南、山东实施黄河滩区居民迁建，约 <strong>90 万人</strong>（豫 30 万、鲁 60 万）搬离滩区，告别洪水直接威胁。</p>
+  <p class="body">黄河流域灌溉面积由 1950 年的约 <span class="y">1200 万亩</span>发展到超过 <span class="g">1 亿亩</span>，成为国家重要农产品产区。</p>
+  <p class="body">沿黄城市群与都市圈布局成型，生态廊道、湿地公园把治理成果转化为可进入的公共空间。</p>
+  <p class="body">下方交互页面汇总了九省共治的成果数据与实景影像。</p>
+  <div class="frame"><iframe src="6-H5第六屏_黄河流域交互可视化_含图版.html" loading="lazy" title="黄河流域交互可视化"></iframe></div>
+  <div class="hint">可交互 · 点击省份查看数据 ｜ 画面下方继续滑动</div>
+  <div class="src">来源：山东省、河南省黄河滩区居民迁建公开数据、水利部</div>
+</section>
+
+<!-- ============ 第7屏 终章 ============ -->
+<section id="s7">
+  <div class="eyebrow">第 7 屏 · 终章</div>
+  <h2><span class="num">10</span>十年治理账本</h2>
+  <p class="body">把这条河的十年，压成四组关键数字：</p>
+  <div class="recap">
+    <div class="stat"><b>24<small>年</small></b><span>干流连续不断流（1999 年起）</span></div>
+    <div class="stat"><b>Ⅱ<small>类</small></b><span>干流全线水质（2022 年起）</span></div>
+    <div class="stat gold"><b>16→2<small>亿吨</small></b><span>年入黄泥沙量</span></div>
+    <div class="stat gold"><b>+3<small>pct</small></b><span>水土保持率六年累计提升</span></div>
+  </div>
+  <p class="body" style="margin-top:16px">按规划纲要，到 2035 年黄河流域将基本建成幸福河，本世纪中叶全面实现流域高质量发展。</p>
+  <div class="endsign">
+    <b>让黄河成为造福人民的幸福河</b>
+    <p>九省同心 · 久久为功<br/>黄河流域九省协同治理数据新闻作品</p>
+  </div>
+  <div class="srcbox">
+    <b>数据来源</b><br/>
+    水利部黄河水利委员会《黄河流域水土保持公报》《黄河泥沙公报》｜生态环境部《中国生态环境状况公报》｜《黄河流域生态保护和高质量发展规划纲要》（2021.10）｜《中华人民共和国黄河保护法》（2023.4.1 施行）｜水利部水量调度与滩区迁建公开数据｜青海省三江源国家公园管理局｜新华社、人民日报公开报道<br/>
+    注：带「约」数字为公开常见口径，以最新年度公报为准。
+  </div>
+</section>
+
+<script>
+/* ===== 顶部进度条 ===== */
+var bar=document.getElementById('bar');
+addEventListener('scroll',function(){
+  var h=document.documentElement.scrollHeight-innerHeight;
+  bar.style.width=(scrollY/h*100)+'%';
+},{passive:true});
+
+/* ===== 统一主题的 ECharts（由原折线图/漏斗图数据重绘） ===== */
+var FONT='"PingFang SC","Microsoft YaHei",sans-serif';
+var INK='#2B2B26', INK2='#6B6A60', GOLD='#B98A2B', GREEN='#2E8B6E', LINE='#E4E0D4';
+
+/* —— 折线图：水土保持率 —— */
+var keep=[["2019",66.75],["2020",66.94],["2021",67.37],["2022",67.85],["2023",68.40],["2024",69.07],["2025",69.75]];
+echarts.init(document.getElementById('chart-line')).setOption({
+  textStyle:{fontFamily:FONT},
+  grid:{left:52,right:48,top:34,bottom:34},
+  tooltip:{trigger:'axis',formatter:function(ps){var p=ps[0];return '<b>'+p.axisValue+' 年</b><br/>水土保持率：'+p.value.toFixed(2)+'%';}},
+  xAxis:{type:'category',data:keep.map(d=>d[0]),axisLabel:{color:INK2,fontWeight:600},axisLine:{lineStyle:{color:LINE}},axisTick:{show:false}},
+  yAxis:{type:'value',min:66.5,max:70.2,axisLabel:{color:INK2,formatter:'{value}%'},splitLine:{lineStyle:{color:LINE}}},
+  series:[{
+    type:'line',smooth:true,symbol:'circle',symbolSize:8,
+    lineStyle:{color:GREEN,width:3},
+    itemStyle:{color:'#fff',borderColor:GREEN,borderWidth:2.5},
+    areaStyle:{color:{type:'linear',x:0,y:0,x2:0,y2:1,colorStops:[{offset:0,color:'rgba(46,139,110,.22)'},{offset:1,color:'rgba(46,139,110,0)'}]}},
+    label:{show:true,color:INK,fontWeight:700,fontSize:11,formatter:'{c}%'},
+    markLine:{symbol:'none',lineStyle:{color:GOLD,type:'dashed'},label:{show:false},
+      data:[[{coord:['2019',66.75]},{coord:['2025',69.75]}]]},
+    data:keep.map(d=>d[1])
+  }]
+});
+
+/* —— 漏斗图：水土流失面积 —— */
+var loss=[["2019年",26.42,0],["2020年",26.27,0.15],["2021年",25.93,0.34],["2022年",25.55,0.38],["2023年",25.11,0.44],["2024年",24.58,0.53],["2025年",24.04,0.54]];
+var pal=['#9FD3B8','#84C9A6','#69BE95','#4EB383','#39A873','#2E9E6E','#1F8A5E'];
+echarts.init(document.getElementById('chart-funnel')).setOption({
+  textStyle:{fontFamily:FONT},
+  tooltip:{trigger:'item',formatter:function(p){var d=loss[p.dataIndex];return '<b>'+d[0]+'</b><br/>水土流失面积：'+d[1].toFixed(2)+' 万 km²'+(d[2]?'<br/>较上年减少：'+d[2].toFixed(2)+' 万 km²':'');}},
+  series:[{
+    type:'funnel',left:'4%',right:'4%',top:16,bottom:16,
+    min:23.8,max:26.6,minSize:'26%',maxSize:'100%',sort:'descending',gap:3,
+    label:{position:'inside',color:'#fff',fontWeight:700,fontSize:12,
+      formatter:function(p){var d=loss[p.dataIndex];return d[0]+'  '+d[1].toFixed(2)+' 万km²'+(d[2]?'  (↓'+d[2].toFixed(2)+')':'');}},
+    labelLine:{show:false},
+    itemStyle:{borderColor:'#FBFAF6',borderWidth:2},
+    data:loss.map(function(d,i){return {value:d[1],name:d[0],itemStyle:{color:pal[i]}};})
+  }]
+});
+</script>
+</body>
+</html>
