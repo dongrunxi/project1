@@ -15,21 +15,21 @@
   body{
     background:var(--paper); color:var(--ink);
     font-family:"PingFang SC","Hiragino Sans GB","Microsoft YaHei","Source Han Sans SC",sans-serif;
-    overflow:hidden;
+    overflow-y:auto;overflow-x:hidden;
   }
-  .wrap{display:flex;height:100vh;width:100vw;}
+  .wrap{display:flex;flex-direction:column;height:auto;min-height:100vh;width:100vw;}
 
   /* ---------- 图谱区 ---------- */
-  .mapbox{flex:1;position:relative;min-width:0;background:var(--paper);}
-  svg#map{width:100%;height:100%;display:block;}
+  .mapbox{flex:none;position:relative;min-width:0;background:var(--paper);}
+  svg#map{width:100%;height:auto;display:block;}
   .pnode{cursor:pointer;}
   .pnode circle.dot{fill:#fff;stroke:var(--gold);stroke-width:2.6;transition:.18s;}
   .pnode:hover circle.dot{fill:var(--gold-l);}
   .pnode circle.hit{fill:transparent;}
   .pnode text{pointer-events:none;}
-  .pv{font-size:18px;font-weight:800;fill:var(--ink);}
-  .pa{font-size:12.5px;font-weight:700;fill:var(--gold);}
-  .pd{font-size:10.5px;font-weight:600;fill:var(--green);}
+  .pv{font-size:20px;font-weight:800;fill:var(--ink);}
+  .pa{font-size:14.5px;font-weight:700;fill:var(--gold);}
+  .pd{font-size:10.5px;font-weight:600;fill:var(--green);display:none;}
   .deal{cursor:pointer;}
   .deal circle.dn{fill:#EAF6F0;stroke:var(--green);stroke-width:2.4;transition:.18s;}
   .deal:hover circle.dn{fill:#D6F0E4;}
@@ -41,15 +41,16 @@
   .dn2{font-size:11.5px;font-weight:700;fill:var(--green);}
   .fline{fill:none;stroke:var(--gold);stroke-linecap:round;opacity:.75;}
   .glow{pointer-events:none;}
-  .gtitle{font-size:17px;font-weight:800;fill:var(--ink);letter-spacing:.01em;}
+  .gtitle{font-size:19px;font-weight:800;fill:var(--ink);letter-spacing:.01em;}
   .gsub{font-size:12.5px;fill:var(--ink3);}
-  .cc1{font-size:19px;font-weight:800;fill:var(--ink);}
-  .cc2{font-size:12px;font-weight:600;fill:var(--gold);}
+  .cc1{font-size:16px;font-weight:800;fill:var(--ink);}
+  .cc2{font-size:11px;font-weight:600;fill:var(--gold);}
+  .pv,.pa,.pd,.dn1,.dn2,.gtitle,.gsub,.cc1,.cc2{paint-order:stroke;stroke:#FBFAF6;stroke-width:3px;stroke-linejoin:round;}
 
   /* ---------- 右侧面板 ---------- */
   .panel{
-    width:clamp(360px,26vw,430px);flex:none;height:100%;
-    background:#fff;border-left:1px solid var(--line);
+    width:100%;flex:none;height:auto;
+    background:#fff;border-left:none;border-top:1px solid var(--line);
     padding:clamp(22px,2.4vh,38px) clamp(20px,2vw,34px);
     display:flex;flex-direction:column;gap:clamp(12px,1.6vh,20px);
     overflow-y:auto;
@@ -60,6 +61,8 @@
     border:1px solid rgba(185,138,43,.28);border-radius:999px;padding:5px 14px;
   }
   .panel h2{font-size:clamp(21px,1.9vw,27px);line-height:1.4;font-weight:800;letter-spacing:-.01em;}
+  body.bare .panel{display:none;}
+  body.bare .wrap{min-height:0;height:auto;}
   .panel .sub{font-size:13px;color:var(--ink2);line-height:1.7;}
   .card{
     background:var(--card);border:1px solid var(--line);border-radius:14px;
@@ -116,7 +119,7 @@
 <body data-page-node-id="99jT58gFtHbrwn53AMZREB">
 <div class="wrap" data-page-node-id="Qyj1kAPi0jKgdwKWdZEpvh">
   <div class="mapbox" id="mapbox" data-page-node-id="ZesfkXz8NKe0MgaVmj1F3Q">
-    <svg id="map" viewBox="0 0 1150 800" preserveAspectRatio="xMidYMid meet" data-page-node-id="WHoj1qtkgeATobrJNL3OLA">
+    <svg id="map" viewBox="0 0 620 525" preserveAspectRatio="xMidYMid meet" data-page-node-id="WHoj1qtkgeATobrJNL3OLA">
       <defs data-page-node-id="yWI4MDeL4IePOLcfu2RFOO">
         <radialGradient id="gGold" cx="50%" cy="50%" r="50%" data-page-node-id="7f2urZuF1MIevkh7OM4QxS">
           <stop offset="0%" stop-color="#FFE9B8" data-page-node-id="FZIj496ktIzByfMOb3ZwpO"/><stop offset="100%" stop-color="#E3B85C" data-page-node-id="tAFSOimhqv4B3689Qm3Xja"/>
@@ -129,11 +132,11 @@
         </filter>
         <!-- 流向箭头：userSpaceOnUse 保证不随线宽缩放，尺寸做大以示醒目 -->
         <marker id="arwG" viewBox="0 0 12 12" refX="11" refY="6"
-                markerWidth="15" markerHeight="15" markerUnits="userSpaceOnUse" orient="auto" data-page-node-id="pziwOCM8dVXlARwiEVD1W9">
+                markerWidth="12" markerHeight="12" markerUnits="userSpaceOnUse" orient="auto" data-page-node-id="pziwOCM8dVXlARwiEVD1W9">
           <path d="M 0 1 L 11 6 L 0 11 Z" fill="#B98A2B" data-page-node-id="uC2VuuiHJ1yHWPoZ9fkAv1"/>
         </marker>
         <marker id="arwGr" viewBox="0 0 12 12" refX="11" refY="6"
-                markerWidth="15" markerHeight="15" markerUnits="userSpaceOnUse" orient="auto" data-page-node-id="CydQPH6FkKVyNqDyYUfP21">
+                markerWidth="12" markerHeight="12" markerUnits="userSpaceOnUse" orient="auto" data-page-node-id="CydQPH6FkKVyNqDyYUfP21">
           <path d="M 0 1 L 11 6 L 0 11 Z" fill="#2E8B6E" data-page-node-id="wEDHxhFlFFnHaMrsQlj4Hq"/>
         </marker>
       </defs>
@@ -177,8 +180,8 @@
 /* ================= 图谱布局 ================= */
 // 中心辐射状知识图谱：中心=流域生态资金，一级环=九省（顺时针按上中下游），
 // 二级=各省参与的补偿协议节点，挂在签约核心省外侧
-var CX = 575, CY = 390;          // 中心
-var R1 = 230, R2 = 385;          // 一级 / 二级环半径
+var CX = 310, CY = 300;          // 中心
+var R1 = 170, R2 = 258;          // 一级 / 二级环半径
 
 function polar(cx, cy, r, deg){
   var a = deg * Math.PI / 180;
@@ -230,17 +233,17 @@ Object.keys(PROV).forEach(function(k){
 
 // 横向协议节点：挂在签约核心省外侧（甘肃 3 个 + 山东 1 个）
 var DEALS = [
-  {a:"山东", b:"河南", amt:"2.5 亿元", ang:230, title:"豫鲁横向生态补偿", lab:"鲁 → 豫",
+  {a:"山东", b:"河南", amt:"2.5亿元", ang:230, title:"豫鲁横向生态补偿", lab:"鲁→豫",
    note:"2021 年 4 月签署，黄河流域首例省际横向补偿协议。以刘庄国控断面水质为考核标尺，水质在Ⅲ类基础上每改善一个类别，山东补偿河南 6000 万元；累计兑现 2.5 亿元，其中 2024 年度单笔 6207 万元。",
    q:[{t:"水质年均值在Ⅲ类基础上每改善一个水质类别，山东省给予河南省6000万元补偿资金", s:"山东省人民政府官网（2021.5）"},
       {t:"自2021年豫鲁两省建立横向生态保护补偿机制以来，山东省已累计向河南省兑现生态补偿金2.5亿元", s:"人民日报海外版（2025.7.15）"}]},
-  {a:"甘肃", b:"青海", amt:"2000 万元", ang:-52, title:"甘青横向生态补偿", lab:"甘 → 青",
+  {a:"甘肃", b:"青海", amt:"2000万元", ang:-52, title:"甘青横向生态补偿", lab:"甘→青",
    note:"2024 年 6 月签署。玛曲跨界断面水质由 Ⅱ 类提升为 Ⅰ 类后，甘肃向青海兑现 2000 万元——协议签署后实现实质性补偿，获财政部、生态环境部专门表扬。",
    q:[{t:"2024年6月，与黄河流域源头青海省签订跨省际流域横向生态保护补偿协议，根据协议，甘肃省向青海省补偿资金2000万元", s:"生态环境部官网专题（2026.2）"}]},
-  {a:"四川", b:"甘肃", amt:"1 亿元", ang:-14, title:"川甘两轮补偿协议", lab:"川 ↔ 甘",
+  {a:"四川", b:"甘肃", amt:"1亿元", ang:-14, title:"川甘两轮补偿协议", lab:"川↔甘",
    note:"2021、2023 年两轮签约，两省按 1:1 共设 1 亿元资金池；玛曲断面水质由 Ⅱ 类提升为 Ⅰ 类、考核达标，两省互不补偿，获财政部、生态环境部专门表扬。",
    q:[{t:"2021年、2023年，与四川省先后签订两轮《黄河流域（四川—甘肃段）横向生态补偿协议》，根据玛曲断面水质考核情况，两省互不补偿", s:"生态环境部官网专题（2026.2）"}]},
-  {a:"甘肃", b:"宁夏", amt:"互不补偿", ang:28, title:"甘宁横向生态补偿", lab:"甘 ↔ 宁",
+  {a:"甘肃", b:"宁夏", amt:"互不补偿", ang:28, title:"甘宁横向生态补偿", lab:"甘↔宁",
    note:"2023 年 6 月签署，以五佛寺断面水质为考核标尺；断面稳定达标，两省互不补偿——机制有效运转的最好证明。",
    q:[{t:"2023年6月，与宁夏回族自治区签订《黄河流域（甘肃—宁夏段）横向生态补偿协议》，根据五佛寺断面水质考核情况，两省互不补偿", s:"生态环境部官网专题（2026.2）"}]}
 ];
@@ -270,10 +273,10 @@ function trim(x1, y1, x2, y2, gap){
 /* ================= 图题 ================= */
 (function(){
   var g = document.getElementById("gNode");
-  var t = el("text", {x:40, y:52, "class":"gtitle"}, g);
+  var t = el("text", {x:24, y:38, "class":"gtitle"}, g);
   t.textContent = "流域生态资金双向流动图谱";
-  var s = el("text", {x:40, y:74, "class":"gsub"}, g);
-  s.textContent = "九省按上游 → 中游 → 下游顺时针环布 · 箭头表示资金流向 · 悬停查看详情";
+  var s = el("text", {x:24, y:58, "class":"gsub"}, g);
+  s.textContent = "箭头 = 资金流向 · 悬停/点按节点查看详情";
 })();
 
 /* ================= 纵向流线（中心 → 九省） ================= */
@@ -286,8 +289,8 @@ var order = ["青海","四川","甘肃","宁夏","内蒙古","陕西","山西","
 var phase = 0;
 order.forEach(function(name){
   var p = PROV[name];
-  var s = trim(p.x, p.y, CX, CY, 70);
-  var e = trim(CX, CY, p.x, p.y, 48);
+  var s = trim(p.x, p.y, CX, CY, 56);
+  var e = trim(CX, CY, p.x, p.y, 40);
   var mx = (s.x + e.x) / 2, my = (s.y + e.y) / 2;
   var dx = e.x - s.x, dy = e.y - s.y, len = Math.hypot(dx, dy);
   var nx = -dy / len, ny = dx / len;
@@ -314,8 +317,8 @@ order.forEach(function(name){
 var gDeal = document.getElementById("gDeal");
 DEALS.forEach(function(dl, idx){
   var pa = PROV[dl.a];
-  var s = trim(dl.x, dl.y, pa.x, pa.y, 44);
-  var e = trim(pa.x, pa.y, dl.x, dl.y, 34);
+  var s = trim(dl.x, dl.y, pa.x, pa.y, 36);
+  var e = trim(pa.x, pa.y, dl.x, dl.y, 27);
   var mx = (s.x + e.x) / 2, my = (s.y + e.y) / 2;
   var dx = e.x - s.x, dy = e.y - s.y, len = Math.hypot(dx, dy);
   var nx = -dy / len, ny = dx / len;
@@ -339,11 +342,11 @@ DEALS.forEach(function(dl, idx){
 
   // 协议节点圆 + 文字
   var cg = el("g", {"class":"dealNode"}, g);
-  el("circle", {"class":"hit", cx:dl.x, cy:dl.y, r:40}, cg);
-  el("circle", {"class":"dn", cx:dl.x, cy:dl.y, r:33}, cg);
-  var t1 = el("text", {x:dl.x, y:dl.y - 1, "text-anchor":"middle", "class":"dn1"}, cg);
+  el("circle", {"class":"hit", cx:dl.x, cy:dl.y, r:38}, cg);
+  el("circle", {"class":"dn", cx:dl.x, cy:dl.y, r:32}, cg);
+  var t1 = el("text", {x:dl.x, y:dl.y - 2, "text-anchor":"middle", "class":"dn1"}, cg);
   t1.textContent = dl.lab;
-  var t2 = el("text", {x:dl.x, y:dl.y + 16, "text-anchor":"middle", "class":"dn2"}, cg);
+  var t2 = el("text", {x:dl.x, y:dl.y + 15, "text-anchor":"middle", "class":"dn2"}, cg);
   t2.textContent = dl.amt;
 
   g.addEventListener("mouseenter", function(ev){ showDeal(idx); showTipDeal(ev, idx); });
@@ -354,16 +357,15 @@ DEALS.forEach(function(dl, idx){
 /* ================= 中心节点 ================= */
 var gNode = document.getElementById("gNode");
 var cc = el("g", {"class":"centerNode"}, gNode);
-el("circle", {cx:CX, cy:CY, r:74, fill:"rgba(185,138,43,.08)"}, cc);
-el("circle", {cx:CX, cy:CY, r:62, fill:"#fff", stroke:"#B98A2B", "stroke-width":2.6}, cc);
-var star = el("path", {d:"M " + CX + " " + (CY-38) +
-  " L " + (CX+11) + " " + (CY-12) + " L " + (CX+36) + " " + (CY-12) + " L " + (CX+17) + " " + (CY+5) +
-  " L " + (CX+23) + " " + (CY+32) + " L " + CX + " " + (CY+17) + " L " + (CX-23) + " " + (CY+32) +
-  " L " + (CX-17) + " " + (CY+5) + " L " + (CX-36) + " " + (CY-12) + " L " + (CX-11) + " " + (CY-12) + " Z",
+el("circle", {cx:CX, cy:CY, r:58, fill:"rgba(185,138,43,.08)"}, cc);
+el("circle", {cx:CX, cy:CY, r:48, fill:"#fff", stroke:"#B98A2B", "stroke-width":2.4}, cc);
+var SK = [[0,-38],[11,-12],[36,-12],[17,5],[23,32],[0,17],[-23,32],[-17,5],[-36,-12],[-11,-12]];
+  var KS = 48/62;
+  var star = el("path", {d:"M " + SK.map(function(q){return (CX+q[0]*KS).toFixed(1)+" "+(CY+q[1]*KS).toFixed(1);}).join(" L ") + " Z",
   fill:"#B98A2B"}, cc);
-var c1 = el("text", {x:CX, y:CY + 44, "text-anchor":"middle", "class":"cc1"}, cc);
+var c1 = el("text", {x:CX, y:CY + 70, "text-anchor":"middle", "class":"cc1"}, cc);
 c1.textContent = "流域生态资金";
-var c2 = el("text", {x:CX, y:CY + 62, "text-anchor":"middle", "class":"cc2"}, cc);
+var c2 = el("text", {x:CX, y:CY + 88, "text-anchor":"middle", "class":"cc2"}, cc);
 c2.textContent = "双向流动 · 共治共赢";
 
 /* ================= 省份节点 ================= */
@@ -371,12 +373,12 @@ var HAS_DEAL = {"山东":1,"河南":1,"青海":1,"宁夏":1,"甘肃":1,"四川":
 order.forEach(function(name){
   var p = PROV[name];
   var g = el("g", {"class":"pnode"}, gNode);
-  el("circle", {"class":"hit", cx:p.x, cy:p.y, r:44}, g);
-  el("circle", {"class":"dot", cx:p.x, cy:p.y, r:38}, g);
-  var t1 = el("text", {x:p.x, y:p.y - 4, "text-anchor":"middle", "class":"pv"}, g);
+  el("circle", {"class":"hit", cx:p.x, cy:p.y, r:50}, g);
+  el("circle", {"class":"dot", cx:p.x, cy:p.y, r:44}, g);
+  var t1 = el("text", {x:p.x, y:p.y - 7, "text-anchor":"middle", "class":"pv"}, g);
   t1.textContent = name;
-  var t2 = el("text", {x:p.x, y:p.y + 16, "text-anchor":"middle", "class":"pa"}, g);
-  t2.textContent = p.tp.toFixed(1) + " 亿";
+  var t2 = el("text", {x:p.x, y:p.y + 15, "text-anchor":"middle", "class":"pa"}, g);
+  t2.textContent = p.tp.toFixed(1) + "亿";
   if(HAS_DEAL[name]){
     var t3 = el("text", {x:p.x, y:p.y + 30, "text-anchor":"middle", "class":"pd"}, g);
     t3.textContent = "▸ 有回馈";
@@ -485,6 +487,9 @@ function tick(now){
 requestAnimationFrame(tick);
 
 })();
+</script>
+<script>
+try{ if(new URLSearchParams(location.search).has('bare')) document.body.classList.add('bare'); }catch(e){}
 </script>
 </body>
 </html>
