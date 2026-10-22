@@ -3,8 +3,9 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-<title>九曲同流·幸福河长｜黄河流域九省协同治理数据新闻</title>
+<title>同饮一河水｜黄河流域九省协同记 · 数据新闻</title>
 <script src="https://cdn.jsdelivr.net/npm/echarts@5/dist/echarts.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/echarts-liquidfill@3.1.0/dist/echarts-liquidfill.min.js"></script>
 <style>
 :root{
   --paper:#FBFAF6; --card:#FFFFFF;
@@ -24,73 +25,113 @@ body{
    标题 700 / 正文 400 / 强调与数字 600–700，全篇仅 paper 底 + 墨字 + 金/绿两色 */
 section{
   max-width:520px; margin:0 auto;
-  padding:56px 20px 40px;
+  padding:34px 20px 26px;
   scroll-snap-align:start;
   border-bottom:1px solid var(--line);
 }
 .eyebrow{
-  font-size:11px; font-weight:700; letter-spacing:.24em;
-  color:var(--gold); margin-bottom:8px;
+  font-size:11px; font-weight:400; letter-spacing:.16em;
+  color:var(--gold); margin-bottom:6px;
 }
-h2{font-size:21px; font-weight:700; line-height:1.35; margin-bottom:4px;}
+h2{font-size:21px; font-weight:700; line-height:1.3; margin-bottom:8px;}
 h2 .num{color:var(--gold); margin-right:6px;}
-h3{font-size:15px; font-weight:700; margin:22px 0 6px;}
+h3{font-size:15px; font-weight:700; margin:16px 0 4px;}
 p.body{
-  font-size:14.5px; font-weight:400; line-height:1.8; color:var(--ink);
-  margin-bottom:4px;
+  font-size:14.5px; font-weight:400; line-height:1.72; color:var(--ink);
+  margin-bottom:6px;
 }
 p.body strong{font-weight:700; color:var(--ink);}
-p.body .g{color:var(--green); font-weight:700;}
-p.body .y{color:var(--gold); font-weight:700;}
+p.body .g{color:var(--green);}
+p.body .y{color:var(--gold);}
 .src{
   font-size:11px; font-weight:400; color:var(--ink3); line-height:1.6;
-  margin-top:6px;
+  margin-top:4px;
 }
 .frame{
-  margin-top:14px; border:1px solid var(--line); border-radius:10px;
+  margin-top:10px; border:1px solid var(--line); border-radius:10px;
   overflow:hidden; background:var(--card); box-shadow:0 4px 16px rgba(43,43,38,.06);
 }
 .frame iframe{width:100%; height:66vh; border:0; display:block; background:#fff;}
 .hint{
-  font-size:11px; color:var(--ink3); text-align:center; margin-top:6px; font-weight:400;
+  font-size:11px; color:var(--ink3); text-align:center; margin-top:5px; font-weight:400;
 }
+/* 水质水球图 */
+.wf-ball{width:100%;}
+.wf-pct{font-size:15px; font-weight:700; color:var(--ink); margin-top:2px; letter-spacing:-.2px;}
+.wf-year{font-size:11px; color:var(--ink3); margin-top:1px;}
+.wf-nat{font-size:10px; color:var(--ink3); margin-top:1px; opacity:.85;}
 /* 数据卡 */
-.stats{display:grid; grid-template-columns:1fr 1fr; gap:10px; margin-top:14px;}
+.stats{display:grid; grid-template-columns:1fr 1fr; gap:8px; margin-top:10px;}
 .stat{
   background:var(--card); border:1px solid var(--line); border-radius:10px;
-  padding:14px 12px; text-align:center;
+  padding:12px 10px; text-align:center;
 }
 .stat b{display:block; font-size:24px; font-weight:700; color:var(--green); line-height:1.2;}
-.stat b small{font-size:12px; font-weight:600;}
+.stat b small{font-size:12px; font-weight:400;}
 .stat.gold b{color:var(--gold);}
-.stat span{display:block; font-size:11.5px; font-weight:400; color:var(--ink2); margin-top:4px; line-height:1.5;}
+.stat span{display:block; font-size:11.5px; font-weight:400; color:var(--ink2); margin-top:3px; line-height:1.45;}
 /* 封面 */
-.cover{min-height:92vh; display:flex; flex-direction:column; justify-content:center;}
-.cover .kicker{font-size:12px; font-weight:700; letter-spacing:.3em; color:var(--gold); margin-bottom:14px;}
+.cover{min-height:84vh; display:flex; flex-direction:column; justify-content:center;}
+.cover .kicker{font-size:12px; font-weight:400; letter-spacing:.16em; color:var(--gold); margin-bottom:10px;}
 .cover h1{font-size:34px; font-weight:700; line-height:1.3; letter-spacing:.02em;}
 .cover h1 span{color:var(--gold);}
-.cover .sub{font-size:14px; font-weight:400; color:var(--ink2); line-height:1.8; margin-top:12px;}
+.cover .sub{font-size:14px; font-weight:400; color:var(--ink2); line-height:1.75; margin-top:8px;}
 .cover .lede{
-  margin-top:20px; padding:16px; background:var(--card);
+  margin-top:14px; padding:14px; background:var(--card);
   border-left:3px solid var(--gold); border-radius:0 10px 10px 0;
-  font-size:14px; font-weight:400; line-height:1.85; color:var(--ink);
+  font-size:14px; font-weight:400; line-height:1.75; color:var(--ink);
 }
 /* 尾屏 */
-.recap{display:grid; grid-template-columns:1fr 1fr; gap:10px; margin-top:14px;}
+.recap{display:grid; grid-template-columns:1fr 1fr; gap:8px; margin-top:10px;}
 .endsign{
-  margin-top:26px; text-align:center; padding:26px 16px;
+  margin-top:18px; text-align:center; padding:20px 14px;
   background:var(--card); border:1px solid var(--line); border-radius:12px;
 }
 .endsign b{font-size:18px; font-weight:700; letter-spacing:.12em;}
-.endsign p{font-size:12.5px; color:var(--ink2); font-weight:400; margin-top:8px; line-height:1.8;}
+.endsign p{font-size:12.5px; color:var(--ink2); font-weight:400; margin-top:6px; line-height:1.7;}
 .srcbox{
-  margin-top:18px; font-size:11px; color:var(--ink3); line-height:1.8; font-weight:400;
+  margin-top:12px; font-size:11px; color:var(--ink3); line-height:1.7; font-weight:400;
 }
-.srcbox b{font-weight:700; color:var(--ink2);}
+.srcbox b{font-weight:400; color:var(--ink2);}
 .topbar{
   position:fixed; top:0; left:0; right:0; height:3px; z-index:99; background:transparent;
 }
 .topbar i{display:block; height:100%; width:0; background:var(--gold);}
+/* ===== 编辑模式 ===== */
+#editbar{
+  position:fixed; right:14px; bottom:14px; z-index:999;
+  display:flex; flex-direction:column; gap:8px; align-items:flex-end;
+}
+#editbar button{
+  font-family:inherit; font-size:12.5px; font-weight:700; cursor:pointer;
+  padding:9px 14px; border-radius:20px; border:1px solid var(--line);
+  background:var(--card); color:var(--ink); box-shadow:0 4px 14px rgba(43,43,38,.14);
+}
+#editbar button:hover{border-color:var(--gold); color:var(--gold);}
+#editbar button.primary{background:var(--gold); border-color:var(--gold); color:#fff;}
+#editbar button.primary:hover{background:#a3761f; color:#fff;}
+body.editing [contenteditable="true"]{
+  outline:1px dashed rgba(185,138,43,.55); outline-offset:3px;
+  background:rgba(227,184,92,.10); border-radius:3px; cursor:text;
+}
+body.editing [contenteditable="true"]:focus{
+  outline:2px solid var(--gold); background:rgba(227,184,92,.18);
+}
+#edittip{
+  position:fixed; left:50%; top:10px; transform:translateX(-50%); z-index:999;
+  background:var(--ink); color:#fff; font-size:12px; font-weight:400;
+  padding:8px 14px; border-radius:16px; display:none; white-space:nowrap;
+}
+body.editing #edittip{display:block;}
+#delblock{
+  position:fixed; z-index:1000; display:none;
+  font-family:inherit; font-size:11.5px; font-weight:700; cursor:pointer;
+  padding:6px 10px; border-radius:14px; border:1px solid #C0483B;
+  background:#fff; color:#C0483B; box-shadow:0 3px 10px rgba(43,43,38,.16);
+  white-space:nowrap;
+}
+#delblock:hover{background:#C0483B; color:#fff;}
+body.editing #delblock.on{display:block;}
 </style>
 </head>
 <body>
@@ -98,8 +139,8 @@ p.body .y{color:var(--gold); font-weight:700;}
 
 <!-- ============ 第1屏 开篇 ============ -->
 <section class="cover" id="s1">
-  <div class="kicker">黄河流域九省协同治理 · 数据新闻</div>
-  <h1>九曲同流<span>·</span>幸福河长</h1>
+  <div class="kicker">数据新闻 · 黄河流域生态保护</div>
+  <h1>同饮一河水<span>｜</span><br>黄河流域九省协同记</h1>
   <div class="sub">一条河的十年治理账本：从 16 亿吨泥沙到连续 24 年不断流，我们用数据拆解沿黄九省如何分工守护同一条河。</div>
   <div class="lede">
     <strong>5464 公里</strong>的黄河，被 9 个省区分段守护——
@@ -109,20 +150,9 @@ p.body .y{color:var(--gold); font-weight:700;}
   </div>
 </section>
 
-<section id="s1b">
-  <div class="eyebrow">第 1 屏 · 开篇</div>
-  <h2><span class="num">01</span>河流档案</h2>
-  <p class="body">黄河发源于<strong>青海省巴颜喀拉山脉</strong>，干流全长 <span class="y">5464 公里</span>，是中国第二长河。</p>
-  <p class="body">自西向东流经 <span class="g">青海、四川、甘肃、宁夏、内蒙古、山西、陕西、河南、山东</span> 9 个省区，在山东省东营市注入渤海。</p>
-  <p class="body">拖动下方卫星立体地形图，可俯瞰这条大河从雪山到大海的完整路径。</p>
-  <div class="frame"><iframe src="1-黄河3D卫星地图_手机版.html" loading="lazy" title="黄河3D卫星地图"></iframe></div>
-  <div class="hint">可交互 · 拖动旋转缩放 ｜ 画面下方继续滑动</div>
-  <div class="src">来源：水利部黄河水利委员会</div>
-</section>
-
 <section id="s1c">
   <div class="eyebrow">第 1 屏 · 开篇</div>
-  <h2><span class="num">02</span>一条被用到极限的大河</h2>
+  <h2><span class="num">01</span>一条被用到极限的大河</h2>
   <p class="body">黄河以约占全国 <span class="y">2%</span> 的河川径流量，承载了全国约 <span class="g">12%</span> 的人口、约 <span class="g">15%</span> 的耕地，并为沿河 <strong>50 多座</strong>大中城市供水。</p>
   <p class="body">流域水资源开发利用率高达约 <span class="y">80%</span>，远超一般河流 <strong>40%</strong> 的生态警戒线。</p>
   <p class="body">多年平均输沙量约 <span class="y">16 亿吨</span>，居世界大江大河之首——水少、沙多、水沙关系不协调，是黄河长期复杂难治的总根源。</p>
@@ -135,16 +165,32 @@ p.body .y{color:var(--gold); font-weight:700;}
   <div class="src">来源：水利部黄河水利委员会《黄河泥沙公报》</div>
 </section>
 
+<!-- ============ 开篇 · 政策框架 ============ -->
+<section id="s4">
+  <div class="eyebrow">第 1 屏 · 开篇｜政策框架</div>
+  <h2><span class="num">02</span>先立框架：九省是怎么被组织起来的</h2>
+  <p class="body">在进入具体数据之前，先看制度：黄河治理的每一组数字，背后都对应着明确的时间节点与责任主体。</p>
+  <p class="body"><span class="y">2019 年 9 月 18 日</span>，黄河流域生态保护和高质量发展座谈会在郑州召开，该战略正式上升为重大国家战略。</p>
+  <p class="body"><span class="y">2021 年 10 月 8 日</span>规划纲要发布；<span class="y">2023 年 4 月 1 日</span>《黄河保护法》施行，这是继《长江保护法》之后我国第二步流域专门法律。</p>
+  <p class="body">1987 年「八七」分水方案让沿黄各省首次有了明确用水份额；1999 年起实施全流域水量统一调度，属全国首次。</p>
+  <p class="body">2018 年底九省区全面建立河长制，联防联控机制覆盖全流域。</p>
+  <p class="body">以下各章的数据，都可以放回这条时间线上读：制度先行，数据是它的验收结果。</p>
+  <div class="frame"><iframe src="4-huanghe-timeline.html" loading="lazy" title="黄河流域生态治理制度里程碑"></iframe></div>
+  <div class="hint">可交互 · 点击节点查看详情 ｜ 画面下方继续滑动</div>
+  <div class="src">来源：中共中央、国务院《黄河流域生态保护和高质量发展规划纲要》、《中华人民共和国黄河保护法》</div>
+</section>
+
 <!-- ============ 第2屏 大河分工 ============ -->
 <section id="s2">
   <div class="eyebrow">第 2 屏 · 第一章 大河分工</div>
   <h2><span class="num">03</span>同一条河，三种治理任务</h2>
+  <p class="body">黄河干流全长 <span class="y">5464 公里</span>，流经 <span class="g">青海、四川、甘肃、宁夏、内蒙古、山西、陕西、河南、山东</span> 9 个省区，在山东东营注入渤海。</p>
   <p class="body"><span class="g">上游</span>是主要产水区：兰州以上河段来水量约占全流域一半，2021 年 10 月三江源国家公园正式设立，面积 <strong>19.07 万平方公里</strong>，核心任务是涵养水源。</p>
   <p class="body"><span class="y">中游</span>是泥沙主源：约九成泥沙来自黄土高原，现有淤地坝 5.9 万座左右，核心任务是拦沙、治沟、退耕还林还草。</p>
   <p class="body"><span class="g">下游</span>是「地上悬河」：河床普遍高出两岸地面 4–5 米，部分河段超过 10 米，2002 年起小浪底水库连续调水调沙，核心任务是防洪安澜。</p>
-  <p class="body">在立体地形图上可以清楚看到：地貌在哪里变化，治理任务就在哪里切换。</p>
-  <div class="frame"><iframe src="2-huanghe-3d-v3.html" loading="lazy" title="黄河卫星立体地形图"></iframe></div>
-  <div class="hint">可交互 · 侧栏可切换视角 ｜ 画面下方继续滑动</div>
+  <p class="body">拖动下方卫星地图，可沿这条大河从雪山一直看到入海口：地貌在哪里变化，治理任务就在哪里切换。</p>
+  <div class="frame"><iframe src="1-黄河3D卫星地图_手机版.html" loading="lazy" title="黄河3D卫星地图"></iframe></div>
+  <div class="hint">可交互 · 拖动旋转缩放 ｜ 画面下方继续滑动</div>
   <div class="src">来源：《黄河流域生态保护和高质量发展规划纲要》、水利部</div>
 </section>
 
@@ -184,48 +230,56 @@ p.body .y{color:var(--gold); font-weight:700;}
   <div class="src">来源：水利部、生态环境部《中国生态环境状况公报》</div>
 </section>
 
-<!-- ============ 第4屏 制度聚力 ============ -->
-<section id="s4">
-  <div class="eyebrow">第 4 屏 · 第三章 制度聚力</div>
-  <h2><span class="num">07</span>四项制度，串起九省</h2>
-  <p class="body"><span class="y">2019 年 9 月 18 日</span>，黄河流域生态保护和高质量发展座谈会在郑州召开，该战略正式上升为重大国家战略。</p>
-  <p class="body"><span class="y">2021 年 10 月 8 日</span>规划纲要发布；<span class="y">2023 年 4 月 1 日</span>《黄河保护法》施行，这是继《长江保护法》之后我国第二步流域专门法律。</p>
-  <p class="body">1987 年「八七」分水方案让沿黄各省首次有了明确用水份额；1999 年起实施全流域水量统一调度，属全国首次。</p>
-  <p class="body">2018 年底九省区全面建立河长制，联防联控机制覆盖全流域。</p>
-  <div class="frame"><iframe src="4-huanghe-timeline.html" loading="lazy" title="黄河流域生态治理制度里程碑"></iframe></div>
-  <div class="hint">可交互 · 点击节点查看详情 ｜ 画面下方继续滑动</div>
-  <div class="src">来源：中共中央、国务院《黄河流域生态保护和高质量发展规划纲要》、《中华人民共和国黄河保护法》</div>
+<!-- ============ 第3屏 水质之变 ============ -->
+<section id="s3d">
+  <div class="eyebrow">第 3 屏 · 第二章 十年之变</div>
+  <h2><span class="num">07</span>水质：四年，从落后 3 个点到反超 1.8 个点</h2>
+  <p class="body">2021 年，黄河流域 Ⅰ—Ⅲ 类水质断面占 <span class="y">81.9%</span>，比全国地表水平均水平（84.9%）低 3.0 个百分点。</p>
+  <p class="body">2025 年升至 <span class="g">93.2%</span>，高于全国（91.4%）<strong>1.8 个百分点</strong>——较 2021 年落后 3.0 个点，四年完成反超，流域水质整体评定为「优」。</p>
+  <p class="body">四年提高 <strong>11.3 个百分点</strong>，同期全国提高 6.5 个百分点，改善速度约为全国的 1.7 倍。</p>
+  <p class="body">改善同时发生在干流与支流：黄河干流已<span class="g">连续 4 年全线稳定达到 Ⅱ 类</span>；扣除本底值影响，支流劣Ⅴ类断面<span class="g">连续 3 年清零</span>。</p>
+  <div class="frame" style="padding:16px 8px 12px">
+    <div id="wf-grid" style="display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:2px">
+      <div style="text-align:center"><div class="wf-ball" id="wf1" style="height:78px"></div><div class="wf-pct">81.9%</div><div class="wf-year">2021</div><div class="wf-nat">全国 84.9%</div></div>
+      <div style="text-align:center"><div class="wf-ball" id="wf2" style="height:78px"></div><div class="wf-pct">87.5%</div><div class="wf-year">2022</div><div class="wf-nat">全国 87.9%</div></div>
+      <div style="text-align:center"><div class="wf-ball" id="wf3" style="height:78px"></div><div class="wf-pct">91.0%</div><div class="wf-year">2023</div><div class="wf-nat">全国 89.4%</div></div>
+      <div style="text-align:center"><div class="wf-ball" id="wf4" style="height:78px"></div><div class="wf-pct">90.4%</div><div class="wf-year">2024</div><div class="wf-nat">全国 90.4%</div></div>
+      <div style="text-align:center"><div class="wf-ball" id="wf5" style="height:78px"></div><div class="wf-pct" style="color:var(--green)">93.2%</div><div class="wf-year">2025</div><div class="wf-nat">全国 91.4%</div></div>
+    </div>
+  </div>
+  <div class="hint">球内水位＝当年 Ⅰ—Ⅲ 类断面占比（0—100% 真实刻度）· 下方灰字为同年全国地表水水平</div>
+  <div class="src">来源：生态环境部《中国生态环境状况公报》（2021—2024 年）、生态环境部 2025 年 1—12 月全国地表水环境质量状况。<br>口径：黄河流域按「十四五」国考断面统计（2021—2024 年分别为 265、263、266、261 个），全国为地表水国控断面，两者同源可比。</div>
 </section>
 
-<!-- ============ 第5屏 互利共护 ============ -->
+<!-- ============ 第4屏 互利共护 ============ -->
 <section id="s5">
-  <div class="eyebrow">第 5 屏 · 第四章 互利共护</div>
+  <div class="eyebrow">第 4 屏 · 第三章 互利共护</div>
   <h2><span class="num">08</span>让守护者有回报</h2>
   <p class="body">青海三江源实行生态管护员「一户一岗」制度，约 <span class="g">1.7 万名</span>牧民持证上岗，<strong>户均年增收约 2 万元</strong>。</p>
   <p class="body">2021 年，河南、山东签订黄河流域<span class="y">首个省际横向生态保护补偿协议</span>，以跨省界断面水质为考核依据：首个履约周期河南水质达标，获得山东 <strong>1 亿元</strong>补偿资金，协议期满后已续签。</p>
   <p class="body">上游送出清水，下游送回补偿——生态账与发展账，从此在同一张表上核算。</p>
-  <p class="body">下方资金流向图谱展示了补偿与协作在九省之间的双向流动。</p>
-  <div class="frame"><iframe src="5-huanghe-flow-graph.html" loading="lazy" title="黄河流域资金双向流动图谱"></iframe></div>
+  <p class="body">图谱显示：中央财政累计向九省转移支付 <span class="y">404.24 亿元</span>，「十四五」期间流域生态保护相关预算约 <strong>1205 亿元</strong>，九省间已建立 <strong>33 个</strong>横向协作与补偿机制。</p>
+  <div class="frame"><iframe src="5-huanghe-flow-graph.html?bare=1" loading="lazy" title="黄河流域资金双向流动图谱" style="height:auto;aspect-ratio:620/525;"></iframe></div>
   <div class="hint">可交互 · 悬停查看每笔协议 ｜ 画面下方继续滑动</div>
   <div class="src">来源：财政部、新华社关于豫鲁横向生态补偿协议的公开报道</div>
 </section>
 
-<!-- ============ 第6屏 成果共享 ============ -->
+<!-- ============ 第5屏 成果共享 ============ -->
 <section id="s6">
-  <div class="eyebrow">第 6 屏 · 第五章 成果共享</div>
+  <div class="eyebrow">第 5 屏 · 第四章 成果共享</div>
   <h2><span class="num">09</span>治理成效落到民生</h2>
   <p class="body">河南、山东实施黄河滩区居民迁建，约 <strong>90 万人</strong>（豫 30 万、鲁 60 万）搬离滩区，告别洪水直接威胁。</p>
   <p class="body">黄河流域灌溉面积由 1950 年的约 <span class="y">1200 万亩</span>发展到超过 <span class="g">1 亿亩</span>，成为国家重要农产品产区。</p>
   <p class="body">沿黄城市群与都市圈布局成型，生态廊道、湿地公园把治理成果转化为可进入的公共空间。</p>
   <p class="body">下方交互页面汇总了九省共治的成果数据与实景影像。</p>
-  <div class="frame"><iframe src="6-H5第六屏_黄河流域交互可视化_含图版.html" loading="lazy" title="黄河流域交互可视化"></iframe></div>
+  <div class="frame"><iframe src="6-H5第六屏_黄河流域交互可视化_含图版.html" loading="lazy" title="黄河流域交互可视化" style="height:950px;"></iframe></div>
   <div class="hint">可交互 · 点击省份查看数据 ｜ 画面下方继续滑动</div>
   <div class="src">来源：山东省、河南省黄河滩区居民迁建公开数据、水利部</div>
 </section>
 
-<!-- ============ 第7屏 终章 ============ -->
+<!-- ============ 第6屏 终章 ============ -->
 <section id="s7">
-  <div class="eyebrow">第 7 屏 · 终章</div>
+  <div class="eyebrow">第 6 屏 · 终章</div>
   <h2><span class="num">10</span>十年治理账本</h2>
   <p class="body">把这条河的十年，压成四组关键数字：</p>
   <div class="recap">
@@ -262,10 +316,10 @@ var INK='#2B2B26', INK2='#6B6A60', GOLD='#B98A2B', GREEN='#2E8B6E', LINE='#E4E0D
 var keep=[["2019",66.75],["2020",66.94],["2021",67.37],["2022",67.85],["2023",68.40],["2024",69.07],["2025",69.75]];
 echarts.init(document.getElementById('chart-line')).setOption({
   textStyle:{fontFamily:FONT},
-  grid:{left:52,right:48,top:34,bottom:34},
+  grid:{left:44,right:22,top:36,bottom:34},
   tooltip:{trigger:'axis',formatter:function(ps){var p=ps[0];return '<b>'+p.axisValue+' 年</b><br/>水土保持率：'+p.value.toFixed(2)+'%';}},
   xAxis:{type:'category',data:keep.map(d=>d[0]),axisLabel:{color:INK2,fontWeight:600},axisLine:{lineStyle:{color:LINE}},axisTick:{show:false}},
-  yAxis:{type:'value',min:66.5,max:70.2,axisLabel:{color:INK2,formatter:'{value}%'},splitLine:{lineStyle:{color:LINE}}},
+  yAxis:{type:'value',min:66,max:70,interval:1,axisLabel:{color:INK2,formatter:'{value}%'},splitLine:{lineStyle:{color:LINE}}},
   series:[{
     type:'line',smooth:true,symbol:'circle',symbolSize:8,
     lineStyle:{color:GREEN,width:3},
@@ -293,6 +347,221 @@ echarts.init(document.getElementById('chart-funnel')).setOption({
     itemStyle:{borderColor:'#FBFAF6',borderWidth:2},
     data:loss.map(function(d,i){return {value:d[1],name:d[0],itemStyle:{color:pal[i]}};})
   }]
+});
+
+/* —— 水质：五年水位水球图（滚动到本屏时依次注水） —— */
+var WFB=[{id:'wf1',v:0.819,c:'#C0B183'},{id:'wf2',v:0.875,c:'#9BB894'},{id:'wf3',v:0.910,c:'#6DAF9B'},{id:'wf4',v:0.904,c:'#4A9E8B'},{id:'wf5',v:0.932,c:'#2E8B6E'}];
+var wfDrawn=false;
+function drawWater(){
+  if(wfDrawn || typeof echarts==='undefined') return;
+  wfDrawn=true;
+  WFB.forEach(function(o,i){
+    setTimeout(function(){
+      var el=document.getElementById(o.id); if(!el) return;
+      var c=echarts.init(el);
+      c.setOption({series:[{type:'liquidFill',radius:'94%',center:['50%','50%'],shape:'circle',
+        data:[o.v,o.v-0.06,0.02],
+        color:[o.c,o.c+'d0',o.c+'a0'],
+        backgroundStyle:{color:'#F1EFE8'},
+        outline:{show:true,borderDistance:3,itemStyle:{borderColor:'#E4E0D4',borderWidth:1}},
+        label:{show:false},
+        amplitude:3.5,waveLength:'76%',waveAnimation:true,
+        animationDuration:1500,animationDurationUpdate:900}]});
+    }, i*230);
+  });
+}
+if('IntersectionObserver' in window){
+  var wfIO=new IntersectionObserver(function(es){
+    es.forEach(function(e){ if(e.isIntersecting){ drawWater(); wfIO.disconnect(); } });
+  },{threshold:0.28});
+  wfIO.observe(document.getElementById('s3d'));
+}else{ drawWater(); }
+setTimeout(drawWater, 6000);
+</script>
+
+<!-- ============ 文案编辑模式（导出时会自动剔除） ============ -->
+<div id="edittip">编辑模式：点文字直接改 · 点块右侧「删除本块」可整段删掉 · 改完点「导出 HTML」保存</div>
+<div id="editbar">
+  <button id="btnEdit" class="primary">✎ 编辑文案</button>
+  <button id="btnExport" hidden>⭳ 导出 HTML</button>
+  <button id="btnReset" hidden>↺ 还原原文</button>
+</div>
+
+<script id="editscript">
+(function(){
+  var SEL = 'h1,.kicker,.sub,.lede,.eyebrow,h2,p.body,.src,.hint,.srcbox,.endsign b,.endsign p,.stat b,.stat span';
+  var KEY = 'hh_copy_edits_v1';
+  var btnEdit = document.getElementById('btnEdit');
+  var btnExport = document.getElementById('btnExport');
+  var btnReset = document.getElementById('btnReset');
+  var editing = false;
+
+  function blocks(){ return Array.prototype.slice.call(document.querySelectorAll(SEL)); }
+
+  /* 把已保存的修改回填到页面 */
+  function load(){
+    var raw;
+    try { raw = JSON.parse(localStorage.getItem(KEY) || 'null'); } catch(e){ raw = null; }
+    if(!raw) return;
+    var els = blocks();
+    Object.keys(raw).forEach(function(i){
+      if(els[i]) els[i].innerHTML = raw[i];
+    });
+  }
+  function save(){
+    var data = {}, els = blocks();
+    els.forEach(function(el, i){ data[i] = el.innerHTML; });
+    try { localStorage.setItem(KEY, JSON.stringify(data)); } catch(e){}
+  }
+
+  function setEditing(on){
+    editing = on;
+    blocks().forEach(function(el){
+      if(on){ el.setAttribute('contenteditable','true'); }
+      else { el.removeAttribute('contenteditable'); }
+    });
+    document.body.classList.toggle('editing', on);
+    btnEdit.textContent = on ? '✓ 完成编辑' : '✎ 编辑文案';
+    btnEdit.classList.toggle('primary', !on);
+    btnExport.hidden = !on;
+    btnReset.hidden = !on;
+    if(on) save();
+    else if(typeof hideDel === 'function') hideDel();
+  }
+
+  btnEdit.addEventListener('click', function(){
+    setEditing(!editing);
+    if(!editing) window.scrollTo({top: window.scrollY, behavior: 'instant'});
+  });
+
+  document.addEventListener('input', function(e){
+    if(editing && e.target.closest('[contenteditable="true"]')) save();
+  });
+
+  /* ===== 删除「整个文字块」（元素本身，不只是里面的字） ===== */
+  var delBtn = document.createElement('button');
+  delBtn.id = 'delblock';
+  delBtn.type = 'button';
+  delBtn.textContent = '✕ 删除本块';
+  delBtn.title = '把这个文字块整段删掉（含空行）';
+  document.body.appendChild(delBtn);
+  var activeEl = null;
+
+  function hideDel(){ delBtn.classList.remove('on'); }
+
+  function positionDel(el){
+    var r = el.getBoundingClientRect();
+    if(r.bottom < 0 || r.top > innerHeight){ hideDel(); return; }
+    delBtn.classList.add('on');
+    var top = Math.max(8, r.top - 12);
+    var left = Math.min(r.right + 6, innerWidth - 92);
+    if(left < 4) left = 4;
+    delBtn.style.top = top + 'px';
+    delBtn.style.left = left + 'px';
+  }
+
+  function removeBlock(el){
+    if(!el || !el.parentNode) return;
+    var prev = el.previousElementSibling;
+    el.parentNode.removeChild(el);
+    activeEl = null;
+    hideDel();
+    save();
+    if(prev){
+      var t = prev.closest('[contenteditable="true"]');
+      if(t) focusEnd(t);
+    }
+  }
+
+  function focusEnd(el){
+    try{
+      el.focus();
+      var range = document.createRange();
+      range.selectNodeContents(el);
+      range.collapse(false);
+      var sel = window.getSelection();
+      sel.removeAllRanges(); sel.addRange(range);
+      activeEl = el; positionDel(el);
+    }catch(e){}
+  }
+
+  document.addEventListener('focusin', function(e){
+    if(!editing) return;
+    var el = e.target.closest ? e.target.closest('[contenteditable="true"]') : null;
+    if(!el){ hideDel(); return; }
+    activeEl = el;
+    positionDel(el);
+  });
+
+  document.addEventListener('focusout', function(e){
+    var el = e.target.closest ? e.target.closest('[contenteditable="true"]') : null;
+    if(el) setTimeout(function(){ if(document.activeElement !== delBtn) hideDel(); }, 120);
+  });
+
+  delBtn.addEventListener('mousedown', function(e){ e.preventDefault(); });
+  delBtn.addEventListener('click', function(){ removeBlock(activeEl); });
+
+  /* 空块里再按一次退格/删除键 → 整块删掉，光标回到上一段末尾 */
+  document.addEventListener('keydown', function(e){
+    if(!editing) return;
+    var el = document.activeElement;
+    if(!el || !el.getAttribute || el.getAttribute('contenteditable') !== 'true') return;
+    if(e.key !== 'Backspace' && e.key !== 'Delete') return;
+    if(el.textContent.replace(/\s|\u00a0/g,'') === ''){
+      e.preventDefault();
+      removeBlock(el);
+    }
+  });
+
+  addEventListener('scroll', function(){ if(editing && activeEl && delBtn.classList.contains('on')) positionDel(activeEl); }, {passive:true});
+  addEventListener('resize', function(){ if(editing && activeEl && delBtn.classList.contains('on')) positionDel(activeEl); });
+
+  btnReset.addEventListener('click', function(){
+    if(!confirm('清除你做的全部文案修改，恢复最初版本？')) return;
+    try { localStorage.removeItem(KEY); } catch(e){}
+    location.reload();
+  });
+
+  /* 导出：克隆文档 → 去掉编辑痕迹、工具条与编辑脚本 → 下载 index.html */
+  function buildExportHTML(){
+    var clone = document.documentElement.cloneNode(true);
+    clone.querySelectorAll('[contenteditable]').forEach(function(el){ el.removeAttribute('contenteditable'); });
+    var tb = clone.querySelector('#editbar'); if(tb) tb.parentNode.removeChild(tb);
+    var tip = clone.querySelector('#edittip'); if(tip) tip.parentNode.removeChild(tip);
+    var es = clone.querySelector('#editscript'); if(es) es.parentNode.removeChild(es);
+    var db = clone.querySelector('#delblock'); if(db) db.parentNode.removeChild(db);
+    /* 清掉被清空的文字块，避免导出后留下空行 */
+    clone.querySelectorAll('p.body,.src,.hint,.sub,.lede,.eyebrow,.stat span,.stat b,.endsign p').forEach(function(el){
+      if(!el.textContent.replace(/\s|\u00a0/g,'')) el.parentNode.removeChild(el);
+    });
+    /* 数字卡的数值和说明都被清空时，整张卡一起删 */
+    clone.querySelectorAll('.stat').forEach(function(card){
+      if(!card.textContent.replace(/\s|\u00a0/g,'')) card.parentNode.removeChild(card);
+    });
+    var body = clone.querySelector('body');
+    if(body) body.classList.remove('editing');
+    return '<!DOCTYPE html>\n' + clone.outerHTML;
+  }
+  window.__buildExport = buildExportHTML;
+
+  btnExport.addEventListener('click', function(){
+    var html = buildExportHTML();
+    var blob = new Blob([html], {type:'text/html;charset=utf-8'});
+    var a = document.createElement('a');
+    a.href = URL.createObjectURL(blob);
+    a.download = 'index.html';
+    document.body.appendChild(a); a.click(); document.body.removeChild(a);
+    setTimeout(function(){ URL.revokeObjectURL(a.href); }, 3000);
+    alert('已导出新的 index.html。\n把它覆盖到 D:\\work\\黄河H5成品\\ 里同名文件即可生效（建议先把旧文件改名留底）。');
+  });
+
+  load();
+})();
+window.addEventListener('message', function(e){
+  if(e.data && e.data.type === 'hhcard'){
+    var f = document.querySelector('iframe[src*="6-H5"]');
+    if(f) f.style.height = e.data.open ? '1200px' : '950px';
+  }
 });
 </script>
 </body>
